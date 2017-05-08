@@ -13,7 +13,7 @@ then use this library, you could read the specific block of csv data with commen
   [id] => "# data 1"
   [key] => ""
   [value] => ""
-[1]
+[1] =>
   [id] => "1"
   [key] => "aaa"
   [value] => "b"
