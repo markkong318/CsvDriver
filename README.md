@@ -46,10 +46,10 @@ $data_array_list = $csv_driver->get_data_array_list_by_func(
 ```
 3. Save modified data
 ```
-// 書き込む
+// set to buffer
 $csv_driver->write_data_array_list_to_line_buf($data_array_list);
 
-// csv更新
+// update csv
 $csv_driver->update_csv();
 ```
 ## Limitation
