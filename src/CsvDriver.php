@@ -11,18 +11,11 @@ class CsvDriver{
 
 	public function __construct($csv_file = ''){
 
-		if($csv_file == ''){
-			$this->csv_file = __DIR__.'/../../lake/gundam/data/csv/'.$this->snakize(array_pop(explode('\\', get_called_class()))).'.csv';
-		}else{
-			if(strpos($csv_file, '/') !== false) {
-				$this->csv_file = $csv_file;
-			}else{
-				$this->csv_file = __DIR__.'/../../lake/gundam/data/csv/'.$csv_file;
-			}
-		}
+		$this->csv_file = $csv_file;
 		
 		if(!file_exists($this->csv_file)){
-			throw new \ProgrammingError('csv存在しない');
+			echo "csv存在しない\n";
+			exit;
 		}
 
 		$this->csv_header = array();
