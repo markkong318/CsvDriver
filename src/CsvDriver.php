@@ -89,11 +89,21 @@ class CsvDriver{
 		$buf_id_min = PHP_INT_MAX;
 		foreach($this->line_buf as $line){
 
-			if(!$this->is_line_header($line) && !$this->is_line_comment($line) && !$this->is_line_empty($line)) {
+			if(!$this->is_line_header($line) && !$this->is_line_comment_text($line) && !$this->is_line_empty($line)) {
 
 				$data_array = $this->convert_str_to_array($line);
 
-				$id = $data_array['id'];
+				if($this->is_data_array_comment_data($data_array)){
+					// コメントされた場合に
+
+					preg_match('/^#(\d+)$/', $data_array['id'], $match);
+					$id = $match[1];
+
+				}else{
+					// 通常のデータ
+
+					$id = $data_array['id'];
+				}
 
 				if ($id > $buf_id_max) {
 					$buf_id_max = $id;
@@ -264,11 +274,21 @@ class CsvDriver{
 		while (($line = fgets($fp_r)) !== false) {
 			$line = $this->process_read_line($line);
 
-			if($line && !$this->is_line_comment($line) && !$this->is_line_header($line) && !$this->is_line_empty($line)) {
+			if($line && !$this->is_line_comment_text($line) && !$this->is_line_header($line) && !$this->is_line_empty($line)) {
 
 				$data_array = $this->convert_str_to_array($line);
 
-				$id = $data_array['id'];
+				if($this->is_data_array_comment_data($data_array)){
+					// コメントされた場合に
+
+					preg_match('/^#(\d+)$/', $data_array['id'], $match);
+					$id = $match[1];
+
+				}else{
+					// 通常のデータ
+
+					$id = $data_array['id'];
+				}
 
 				if($id == $dst_id) {
 					// 同じIDがある場合に
